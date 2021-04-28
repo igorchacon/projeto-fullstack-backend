@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { UserBusiness } from "../business/UserBusiness";
 import { SignupInputDTO } from "../entities/User";
 
 export class UserController {
@@ -15,7 +16,8 @@ export class UserController {
                 password: req.body.password                
             }
 
-            
+            const userBusiness = new UserBusiness();
+            const token = await userBusiness.signup(input);
 
                 res.status(201).send({ message, token });
     

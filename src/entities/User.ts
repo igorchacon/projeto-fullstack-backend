@@ -15,4 +15,19 @@ export interface SignupInputDTO {
     email: string,
     nickname: string,
     password: string
+};
+
+export interface LoginInputDTO {
+    email: string,
+    password: string
+};
+
+export function toUserModel(obj: any): User {
+    return obj && {
+        id: obj.id,
+        name: obj.name,
+        email: obj.email,
+        nickname: obj.nickname,
+        password: obj.password
+    }
 }

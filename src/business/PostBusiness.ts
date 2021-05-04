@@ -1,5 +1,5 @@
 import { PostDatabase } from "../data/PostDatabase";
-import { createPostInputDTO, Post } from "../entities/Post";
+import { createPostInputDTO, musicGenres, Post } from "../entities/Post";
 import { Authentication } from "../entities/User";
 import { Authenticator } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
@@ -29,6 +29,8 @@ export class PostBusiness {
                 genre: input.genre,
                 album: input.album,
             }
+
+            await new PostDatabase().validateGenre(post);
 
             await new PostDatabase().createPost(post);
 

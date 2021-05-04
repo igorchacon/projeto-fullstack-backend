@@ -2,6 +2,23 @@ import { Post } from "../entities/Post";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class PostDatabase extends BaseDatabase {
+
+    async validateGenre (post: Post) {
+        try {
+            for (let i = 0; i < post.genre.length; i++) {
+                const genre_id = await this.connection("fullstack_project_music_genre")
+                    .select("id")
+                    .where({ "genre": post.genre[i] })
+
+                if (!genre_id) {
+                    throw new Error(`The selected gender ${genre_id[i]} does not exist. Contect admin.`);
+                }
+            }
+            return true;
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
     
     async createPost(post: Post) {
         try {
@@ -15,6 +32,20 @@ export class PostDatabase extends BaseDatabase {
                 author_id: post.author_id,
                 date: post.date.toISOString().substring(0, 10)             
             });
+
+            for (let i = 0; i < post.genre.length; i++) {
+                const genre_id = await this.connection("fullstack_project_music_genre")
+                    .select("*")
+                    .where({ "genre": post.genre[i] })
+                
+
+                await this.connection("fullstack_project_genre_of_music")
+                    .insert({
+                        music_id: post.id,
+                        genre_id: genre_id[i].id
+                    })
+            }
+            
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }

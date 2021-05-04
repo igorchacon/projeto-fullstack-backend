@@ -17,3 +17,11 @@ export interface createPostInputDTO {
 	album: string,
     token: string
 }
+
+export enum musicGenres {
+	ROCK = 'rock',
+	GOSPEL = 'gospel',
+	INDIE = "indie",
+	POP = "pop",
+    METAL = "metal"
+}

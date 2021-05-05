@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
-import { createPostInputDTO } from "../entities/Post";
+import { createPostInputDTO, getPostByIdDTO, Post } from "../entities/Post";
 
 export class PostController {
 
@@ -27,5 +27,22 @@ export class PostController {
             res.send(message);
         }
         
+    }
+
+    getPostById = async (req: Request, res: Response) => {
+        try {
+            let message = "Success!";
+
+            const input: getPostByIdDTO = {
+                id: req.params.id
+            };
+
+            const post: Post = await new PostBusiness().getPostById(input);
+
+            res.status(200).send({ message, post });
+
+        } catch (error) {
+            
+        }
     }
 }

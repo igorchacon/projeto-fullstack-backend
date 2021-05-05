@@ -1,5 +1,5 @@
 import { PostDatabase } from "../data/PostDatabase";
-import { createPostInputDTO, musicGenres, Post } from "../entities/Post";
+import { createPostInputDTO, getPostByIdDTO, Post } from "../entities/Post";
 import { Authentication } from "../entities/User";
 import { Authenticator } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
@@ -36,6 +36,22 @@ export class PostBusiness {
 
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
+        }
+    };
+
+    async getPostById(input: getPostByIdDTO) {
+        try {
+            
+            const post: Post = await new PostDatabase().getPostById(input.id);
+
+            if (!post) {
+                throw new Error("post not found");
+            };
+
+            return post;
+
+        } catch (error) {
+            throw new Error(error.message);
         }
     }
 }

@@ -18,10 +18,18 @@ export interface createPostInputDTO {
     token: string
 }
 
-export enum musicGenres {
-	ROCK = 'rock',
-	GOSPEL = 'gospel',
-	INDIE = "indie",
-	POP = "pop",
-    METAL = "metal"
+export interface getPostByIdDTO {
+	id: string;
+}
+export function toPostModel(obj: any): Post {
+	return obj && {
+		id: obj.id,
+		title: obj.title,
+		author: obj.author,
+		date: obj.date,
+		file: obj.file,
+		genre: obj.genre,
+		album: obj.album,
+		author_id: obj.author_id
+	}
 }

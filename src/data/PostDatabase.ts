@@ -1,4 +1,4 @@
-import { Post } from "../entities/Post";
+import { Post, toPostModel } from "../entities/Post";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class PostDatabase extends BaseDatabase {
@@ -46,6 +46,18 @@ export class PostDatabase extends BaseDatabase {
                     })
             }
             
+        } catch (error) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
+
+    async getPostById(id: string): Promise<Post> {
+        try {
+            const result: any = await this.connection("fullstack_project_musics")
+                .select("*")
+                .where({ id })
+
+            return toPostModel(result[0])
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }

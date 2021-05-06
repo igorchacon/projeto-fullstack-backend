@@ -19,7 +19,7 @@ export interface createPostInputDTO {
 }
 
 export interface getPostByIdDTO {
-	id: string;
+	author_id: string;
 }
 export function toPostModel(obj: any): Post {
 	return obj && {

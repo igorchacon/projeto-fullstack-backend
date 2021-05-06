@@ -42,7 +42,7 @@ export class PostBusiness {
     async getPostById(input: getPostByIdDTO) {
         try {
             
-            const post: Post = await new PostDatabase().getPostById(input.id);
+            const post: Post = await new PostDatabase().getPostById(input.author_id);
 
             if (!post) {
                 throw new Error("post not found");

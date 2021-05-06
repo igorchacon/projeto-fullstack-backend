@@ -31,15 +31,14 @@ export class PostController {
 
     getPostById = async (req: Request, res: Response) => {
         try {
-            let message = "Success!";
 
             const input: getPostByIdDTO = {
-                id: req.params.id
+                author_id: req.params.author_id
             };
 
             const post: Post = await new PostBusiness().getPostById(input);
 
-            res.status(200).send({ message, post });
+            res.status(200).send( post );
 
         } catch (error) {
             

@@ -51,13 +51,13 @@ export class PostDatabase extends BaseDatabase {
         }
     }
 
-    async getPostById(id: string): Promise<Post> {
+    async getPostById(author_id: string): Promise<Post> {
         try {
             const result: any = await this.connection("fullstack_project_musics")
                 .select("*")
-                .where({ id })
+                .where({ author_id })
 
-            return toPostModel(result[0])
+            return result;
         } catch (error) {
             throw new Error(error.sqlMessage || error.message);
         }

@@ -31,7 +31,6 @@ export class PostController {
 
     getPostById = async (req: Request, res: Response) => {
         try {
-            let message = "Success!";
 
             const input: getPostByIdDTO = {
                 author_id: req.params.author_id
@@ -39,7 +38,7 @@ export class PostController {
 
             const post: Post = await new PostBusiness().getPostById(input);
 
-            res.status(200).send({ post });
+            res.status(200).send( post );
 
         } catch (error) {
             
